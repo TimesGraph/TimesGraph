@@ -16,3 +16,4 @@ Actually the Batch Pipeline model resembles the first thread model of TimesGraph
 
 The TimesGraph model now temporarily uses a normal FIFO scheduler in each thread and threads only execute a part of the functionality and the database part only executes queries on parts of the database. Thus we achieve both the benefits from the batch processing of similar messages in a pipeline and the division of work into different CPUs.
 
+![Image text]()
