@@ -1,0 +1,11 @@
+[package]
+name = "tg-mem"
+version = "0.1.0"
+authors = ["theseusyang"]
+edition = "2021"
+
+[dependencies]
+tg-core = { path = "../core" }
+
+[dev-dependencies]
+tg-c-rt = { path = "../../rt/c-rt" }
