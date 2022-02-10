@@ -1,0 +1,9 @@
+[package]
+name = "timesgraph-collections"
+version = "0.1.0"
+authors = ["theseusyang"]
+edition = "2022"
+
+[dependencies]
+swim-core = { path = "../core" }
+swim-mem = { path = "../mem" }
