@@ -14,31 +14,31 @@ pub trait FilesFacade {
 
     fn exists(fd: i128) -> bool;
 
-    fn findClose(findPtr: i128);
+    fn find_close(findPtr: i128);
 
-    fn findFirst(path: LPSZ) -> i128;
+    fn find_first(path: LPSZ) -> i128;
 
-    fn findName(findPtr: i128) -> i128;
+    fn find_name(findPtr: i128) -> i128;
 
-    fn findNext(findPtr: i128) -> i32;
+    fn find_next(findPtr: i128) -> i32;
 
-    fn findType(findPtr: i128) -> i32;
+    fn find_type(findPtr: i128) -> i32;
 
-    fn getLastModified(LPSZ path) -> i128;
+    fn get_last_modified(LPSZ path) -> i128;
 
     fn msync( addr: i128, long len: i128, async: bool) -> i32;
 
     fn fsync( fd: i128) -> i32;
 
-    fn getMapPageSize()-> i128;
+    fn get_map_page_size()-> i128;
 
-    fn getOpenFileCount()-> i128;
+    fn get_open_file_count()-> i128;
 
-    fn getPageSize()-> i128;
+    fn get_page_size()-> i128;
 
-    fn isRestrictedFileSystem() -> bool;
+    fn is_restricted_file_system() -> bool;
 
-    fn iterateDir(path: LPSZ, func: FindVisitor);
+    fn iterate_dir(path: LPSZ, func: FindVisitor);
 
     fn length(fd: i128)-> i128;
 
@@ -58,13 +58,13 @@ pub trait FilesFacade {
 
     fn munmap(address: i128, size: i128, memoryTag: i32);
 
-    fn openAppend(name: LPSZ) -> i128;
+    fn open_append(name: LPSZ) -> i128;
 
-    fn openRO(name: LPSZ) -> i128;
+    fn open_RO(name: LPSZ) -> i128;
 
-    fn openRW(name: LPSZ) -> i128;
+    fn open_RW(name: LPSZ) -> i128;
 
-    fn openCleanRW(name: LPSZ, size: i128) -> i128;
+    fn open_clean_RW(name: LPSZ, size: i128) -> i128;
 
     fn read(fd: i128, buf: i128, size: i128, offset: i128) -> i128;
 
