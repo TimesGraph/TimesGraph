@@ -1,0 +1,19 @@
+[package]
+name = "wire_protocol"
+version = "0.1.0"
+authors = ["theseusyang <theseus.yang@timesgraph.io>"]
+edition = "2022"
+publish = false
+
+[dependencies]
+wire_protocol_payload = { path = "payload" }
+
+log = "0.4.14"
+native-tls = "0.2.7"
+
+[dev-dependencies]
+postgres-native-tls = "0.5.0"
+postgres = "0.19.1"
+
+[[test]]
+name = "network"

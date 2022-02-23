@@ -1,0 +1,8 @@
+[package]
+name = "wire_protocol_payload"
+version = "0.1.0"
+authors = ["theseusyang <theseus.yang@timesgraph.io>"]
+edition = "2022"
+publish = false
+
+[dependencies]
