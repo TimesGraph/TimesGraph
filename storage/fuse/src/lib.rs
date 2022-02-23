@@ -133,17 +133,17 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Create a directory.
+    /// 创建一个目录.
     fn mkdir(&mut self, _req: &Request<'_>, _parent: u64, _name: &OsStr, _mode: u32, reply: ReplyEntry) {
         reply.error(ENOSYS);
     }
 
-    /// Remove a file.
+    /// 删除一个文件.
     fn unlink(&mut self, _req: &Request<'_>, _parent: u64, _name: &OsStr, reply: ReplyEmpty) {
         reply.error(ENOSYS);
     }
 
-    /// Remove a directory.
+    /// 删除一个目录.
     fn rmdir(&mut self, _req: &Request<'_>, _parent: u64, _name: &OsStr, reply: ReplyEmpty) {
         reply.error(ENOSYS);
     }
@@ -171,11 +171,15 @@ pub trait Filesystem {
     /// anything in fh. There are also some flags (direct_io, keep_cache) which the
     /// filesystem may set, to change the way the file is opened. See fuse_file_info
     /// structure in <fuse_common.h> for more details.
+    /// 打开文件
+    /// 打开标记(除了O_CREAT, O_EXCL, O_NOCTTY and O_TRUNC) 可用在此标记上. 文件系统存储任意文件处理(指针、索引)
+    /// 同时使用它在其他的文件操作中(read, write, flush, release, fsync). 文件系统可能也实现了无状态文件I/O
+    /// 和不存储任意东西.也有一些标记(direct_io, keep_cache)文件系统可能设置, 来改变文件系统打开的方式.
     fn open(&mut self, _req: &Request<'_>, _ino: u64, _flags: u32, reply: ReplyOpen) {
         reply.opened(0, 0);
     }
 
-    /// Read data.
+    /// 读取数据
     /// Read should send exactly the number of bytes requested except on EOF or error,
     /// otherwise the rest of the data will be substituted with zeroes. An exception to
     /// this is when the file has been opened in 'direct_io' mode, in which case the
@@ -186,7 +190,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Write data.
+    /// 写入数据
     /// Write should return exactly the number of bytes requested except on error. An
     /// exception to this is when the file has been opened in 'direct_io' mode, in
     /// which case the return value of the write system call will reflect the return
@@ -196,7 +200,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Flush method.
+    /// 刷新磁盘
     /// This is called on each close() of the opened file. Since file descriptors can
     /// be duplicated (dup, dup2, fork), for one open call there may be many flush
     /// calls. Filesystems shouldn't assume that flush will always be called after some
@@ -210,7 +214,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Release an open file.
+    /// 释放一个打开的文件
     /// Release is called when there are no more references to an open file: all file
     /// descriptors are closed and all memory mappings are unmapped. For every open
     /// call there will be exactly one release call. The filesystem may reply with an
@@ -222,14 +226,14 @@ pub trait Filesystem {
         reply.ok();
     }
 
-    /// Synchronize file contents.
+    /// 同步文件内容
     /// If the datasync parameter is non-zero, then only the user data should be flushed,
     /// not the meta data.
     fn fsync(&mut self, _req: &Request<'_>, _ino: u64, _fh: u64, _datasync: bool, reply: ReplyEmpty) {
         reply.error(ENOSYS);
     }
 
-    /// Open a directory.
+    /// 打开一个目录
     /// Filesystem may store an arbitrary file handle (pointer, index, etc) in fh, and
     /// use this in other all other directory stream operations (readdir, releasedir,
     /// fsyncdir). Filesystem may also implement stateless directory I/O and not store
@@ -240,7 +244,7 @@ pub trait Filesystem {
         reply.opened(0, 0);
     }
 
-    /// Read directory.
+    /// 读取一个目录
     /// Send a buffer filled using buffer.fill(), with size not exceeding the
     /// requested size. Send an empty buffer on end of stream. fh will contain the
     /// value set by the opendir method, or will be undefined if the opendir method
@@ -249,7 +253,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Release an open directory.
+    /// 释放一个目录
     /// For every opendir call there will be exactly one releasedir call. fh will
     /// contain the value set by the opendir method, or will be undefined if the
     /// opendir method didn't set any value.
@@ -257,7 +261,7 @@ pub trait Filesystem {
         reply.ok();
     }
 
-    /// Synchronize directory contents.
+    /// 同步目录内容
     /// If the datasync parameter is set, then only the directory contents should
     /// be flushed, not the meta data. fh will contain the value set by the opendir
     /// method, or will be undefined if the opendir method didn't set any value.
@@ -265,17 +269,17 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Get file system statistics.
+    /// 文件系统统计
     fn statfs(&mut self, _req: &Request<'_>, _ino: u64, reply: ReplyStatfs) {
         reply.statfs(0, 0, 0, 0, 0, 512, 255, 0);
     }
 
-    /// Set an extended attribute.
+    /// 设置一个可扩展的属性
     fn setxattr(&mut self, _req: &Request<'_>, _ino: u64, _name: &OsStr, _value: &[u8], _flags: u32, _position: u32, reply: ReplyEmpty) {
         reply.error(ENOSYS);
     }
 
-    /// Get an extended attribute.
+    /// 获得一个扩展属性
     /// If `size` is 0, the size of the value should be sent with `reply.size()`.
     /// If `size` is not 0, and the value fits, send it with `reply.data()`, or
     /// `reply.error(ERANGE)` if it doesn't.
@@ -283,7 +287,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// List extended attribute names.
+    /// 列出扩展的属性名称
     /// If `size` is 0, the size of the value should be sent with `reply.size()`.
     /// If `size` is not 0, and the value fits, send it with `reply.data()`, or
     /// `reply.error(ERANGE)` if it doesn't.
@@ -291,12 +295,12 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Remove an extended attribute.
+    /// 删除一个扩展属性
     fn removexattr(&mut self, _req: &Request<'_>, _ino: u64, _name: &OsStr, reply: ReplyEmpty) {
         reply.error(ENOSYS);
     }
 
-    /// Check file access permissions.
+    /// 检查文件访问权限
     /// This will be called for the access() system call. If the 'default_permissions'
     /// mount option is given, this method is not called. This method is not called
     /// under Linux kernel versions 2.4.x
@@ -304,7 +308,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Create and open a file.
+    /// 创建和打开一个文件
     /// If the file does not exist, first create it with the specified mode, and then
     /// open it. Open flags (with the exception of O_NOCTTY) are available in flags.
     /// Filesystem may store an arbitrary file handle (pointer, index, etc) in fh,
@@ -318,7 +322,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Test for a POSIX file lock.
+    /// POSIX文件锁测试
     fn getlk(&mut self, _req: &Request<'_>, _ino: u64, _fh: u64, _lock_owner: u64, _start: u64, _end: u64, _typ: u32, _pid: u32, reply: ReplyLock) {
         reply.error(ENOSYS);
     }
@@ -334,7 +338,7 @@ pub trait Filesystem {
         reply.error(ENOSYS);
     }
 
-    /// Map block index within file to block index within device.
+    /// 映射文件的块索引到设备的块索引
     /// Note: This makes sense only for block device backed filesystems mounted
     /// with the 'blkdev' option
     fn bmap(&mut self, _req: &Request<'_>, _ino: u64, _blocksize: u32, _idx: u64, reply: ReplyBmap) {
