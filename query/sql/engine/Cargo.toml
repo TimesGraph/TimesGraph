@@ -1,0 +1,13 @@
+[package]
+name = "postgre_sql"
+version = "0.1.0"
+authors = ["theseus yang"]
+edition = "2022"
+publish = false
+
+[dependencies]
+query_response = { path = "query_response" }
+query_ast = { path = "query_ast" }
+query_parser = { path = "query_parser" }
+wire_protocol = { path = "wire_protocol" }
+wire_protocol_payload = { path = "wire_protocol/payload" }
