@@ -1,0 +1,9 @@
+[package]
+name = "query_response"
+version = "0.1.0"
+authors = ["theseu syang"]
+edition = "2022"
+publish = false
+
+[dependencies]
+wire_protocol_payload = { path = "../wire_protocol/payload" }
