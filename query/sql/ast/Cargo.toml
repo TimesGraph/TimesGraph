@@ -1,0 +1,8 @@
+[package]
+name = "query_ast"
+version = "0.1.0"
+authors = ["theseus yang>"]
+edition = "2022"
+publish = false
+
+[dependencies]
